@@ -34,6 +34,16 @@ fetch('https://cs571api.cs.wisc.edu/rest/f24/ice/chili', {
 
     console.log("What is the average review rating?");
     console.log(data.reviews.reduce((acc, curr) => acc + curr.rating, 0) / data.reviews.length);
+
+    console.log("What are the unique units of ingredients?")
+    console.log(Object.keys(data.ingredients).reduce((prev, curr) => {
+        const ingrInfo = data.ingredients[curr];
+        const unit = ingrInfo.unit;
+        if(unit && !prev.includes(unit)) {
+            prev.push(unit);
+        }
+        return prev;
+    }, []));
 })
 .catch(err => {
     alert("Uh oh! Something went wrong. Are you logged in with your Badger ID?")
